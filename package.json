@@ -1,0 +1,39 @@
+{
+  "name": "security-txt",
+  "version": "1.0.0",
+  "description": "Security.txt Manager for WordPress",
+  "author": {
+    "name": "handyplugins",
+    "email": "support@handyplugins.co",
+    "url": "https://handyplugins.co",
+    "role": "developer"
+  },
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "start": "composer install && npm install --production=false && npm run build",
+    "watch": "10up-toolkit watch",
+    "build": "10up-toolkit build",
+    "format-js": "10up-toolkit format-js",
+    "lint-js": "10up-toolkit lint-js",
+    "lint-style": "10up-toolkit lint-style",
+    "test": "10up-toolkit test-unit-jest",
+    "make-pot": "wp i18n make-pot . languages/security-txt.pot --domain='security-txt'",
+    "make-json": "wp i18n make-json languages --no-purge",
+    "build-release": "npm install --production=false && composer install --no-dev -o && npm run build && npm run make-pot",
+    "lint-release": "npm install && composer install && npm run lint"
+  },
+  "devDependencies": {
+    "10up-toolkit": "^5.1"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1"
+  },
+  "10up-toolkit": {
+    "entry": {
+    },
+    "wpDependencyExternals": false
+  }
+}
