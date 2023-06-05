@@ -1,4 +1,4 @@
-=== Security.txt Manager ===
+=== Security txt Manager ===
 Contributors:      handyplugins, m_uysl
 Tags:              security.txt, security, responsible disclosure, bug bounty
 Requires at least: 5.7
@@ -35,14 +35,14 @@ Yes! However, if you are using a subfolder installation it will only work for th
 
 
 = Contributing & Bug Report =
-Bug reports and pull requests are welcome on [Github](https://github.com/HandyPlugins/security-txt).
+Bug reports and pull requests are welcome on [Github](https://github.com/HandyPlugins/security-txt-manager).
 
 
 == Installation ==
 
 = Manual Installation =
 
-1. Upload the entire `/security-txt` directory to the `/wp-content/plugins/` directory.
+1. Upload the entire `/security-txt-manager` directory to the `/wp-content/plugins/` directory.
 2. Activate Security.txt Manager through the 'Plugins' menu in WordPress.
 
 == Frequently Asked Questions ==

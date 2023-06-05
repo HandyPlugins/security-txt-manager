@@ -1,6 +1,6 @@
-# [Security.txt Manager](https://wordpress.org/plugins/security-txt/) #
+# [Security.txt Manager](https://wordpress.org/plugins/security-txt-manager/) #
 
-![Support Level](https://img.shields.io/badge/support-active-green.svg) [![Release Version](https://img.shields.io/wordpress/plugin/v/security-txt?label=Release%20Version)](https://github.com/handyplugins/security-txt/releases) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/security-txt?label=WordPress) ![Required PHP Version](https://img.shields.io/wordpress/plugin/required-php/security-txt?label=PHP)
+![Support Level](https://img.shields.io/badge/support-active-green.svg) [![Release Version](https://img.shields.io/wordpress/plugin/v/security-txt-manager?label=Release%20Version)](https://github.com/handyplugins/security-txt-manager/releases) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/security-txt-manager?label=WordPress) ![Required PHP Version](https://img.shields.io/wordpress/plugin/required-php/security-txt-manager?label=PHP)
 
 ### What does this plugin do?
 
@@ -39,6 +39,6 @@ the [security.txt spec](https://www.rfc-editor.org/rfc/rfc9116#section-3.1).
 ## Support ##
 
 This is a developer's portal for Security.txt Manager and should _not_ be used for support. Please visit
-the [support forums](https://wordpress.org/support/plugin/security-txt/) if you need to submit a support request.
+the [support forums](https://wordpress.org/support/plugin/security-txt-manager/) if you need to submit a support request.
 
 

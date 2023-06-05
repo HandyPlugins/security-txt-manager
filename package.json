@@ -1,5 +1,5 @@
 {
-  "name": "security-txt",
+  "name": "security-txt-manager",
   "version": "1.0.0",
   "description": "Security.txt Manager for WordPress",
   "author": {
@@ -17,7 +17,7 @@
     "lint-js": "10up-toolkit lint-js",
     "lint-style": "10up-toolkit lint-style",
     "test": "10up-toolkit test-unit-jest",
-    "make-pot": "wp i18n make-pot . languages/security-txt.pot --domain='security-txt'",
+    "make-pot": "wp i18n make-pot . languages/security-txt-manager.pot --domain='security-txt-manager'",
     "make-json": "wp i18n make-json languages --no-purge",
     "build-release": "npm install --production=false && composer install --no-dev -o && npm run build && npm run make-pot",
     "lint-release": "npm install && composer install && npm run lint"

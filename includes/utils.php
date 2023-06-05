@@ -2,16 +2,16 @@
 /**
  * Utils
  *
- * @package Securitytxt
+ * @package SecuritytxtManager
  */
 
-namespace Securitytxt\Utils;
+namespace SecuritytxtManager\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-use const Securitytxt\Constants\SETTING_OPTION;
+use const SecuritytxtManager\Constants\SETTING_OPTION;
 
 /**
  * Is plugin activated network wide?
@@ -45,7 +45,7 @@ function get_settings() {
 		'credits' => true,
 	];
 
-	if ( SECURITY_TXT_IS_NETWORK ) {
+	if ( SECURITY_TXT_MANAGER_IS_NETWORK ) {
 		$settings = get_site_option( SETTING_OPTION, [] );
 	} else {
 		$settings = get_option( SETTING_OPTION, [] );

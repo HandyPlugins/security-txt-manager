@@ -3,7 +3,7 @@
  * Uninstall Security.txt
  * Deletes all plugin related data and configurations
  *
- * @package Security.txt
+ * @package SecuritytxtManager
  */
 
 // Exit if accessed directly.
@@ -14,5 +14,5 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 require_once 'plugin.php';
 
 // delete plugin settings
-delete_option( \Securitytxt\Constants\SETTING_OPTION );
-delete_site_option( \Securitytxt\Constants\SETTING_OPTION );
+delete_option( \SecuritytxtManager\Constants\SETTING_OPTION );
+delete_site_option( \SecuritytxtManager\Constants\SETTING_OPTION );
