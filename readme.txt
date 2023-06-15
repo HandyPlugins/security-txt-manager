@@ -66,7 +66,7 @@ No. The plugin handles ".well-known/security.txt" and "security.txt" requests fo
 
 == Changelog ==
 
-= 1.0 (Draft)  =
+= 1.0 (15 June, 2023)  =
 * First release
 
 == Upgrade Notice ==
