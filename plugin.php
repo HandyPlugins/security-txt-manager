@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Security txt Manager
+ * Plugin Name:       Security.txt Manager
  * Plugin URI:        https://github.com/HandyPlugins/security-txt-manager
  * Description:       Security.txt Manager for WordPress.
  * Version:           1.0

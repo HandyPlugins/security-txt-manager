@@ -1,8 +1,8 @@
-=== Security txt Manager ===
+=== Security.txt Manager ===
 Contributors:      handyplugins, m_uysl
 Tags:              security.txt, security, responsible disclosure, bug bounty
 Requires at least: 5.7
-Tested up to:      6.2
+Tested up to:      6.3
 Requires PHP:      7.2
 Stable tag:        1.0
 License:           GPLv2 or later
@@ -36,6 +36,14 @@ Yes! However, if you are using a subfolder installation it will only work for th
 
 = Contributing & Bug Report =
 Bug reports and pull requests are welcome on [Github](https://github.com/HandyPlugins/security-txt-manager).
+
+
+__If you like Security.txt Manager, then consider checking out our other projects:__
+
+* <a href="https://handyplugins.co/magic-login-pro/" rel="friend">Magic Login Pro</a> – Easy, secure, and passwordless authentication for WordPress.
+* <a href="https://handyplugins.co/easy-text-to-speech/" rel="friend">Easy Text-to-Speech for WordPress</a> – Transform your textual content into high-quality synthesized speech with Amazon Polly.
+* <a href="https://handyplugins.co/handywriter/" rel="friend">Handywriter</a> – AI-powered writing assistant that can help you create content for your WordPress.
+* <a href="https://handyplugins.co/paddlepress-pro/" rel="friend">PaddlePress PRO</a> – Paddle Plugin for WordPress
 
 
 == Installation ==
