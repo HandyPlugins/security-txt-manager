@@ -2,9 +2,9 @@
 Contributors:      handyplugins, m_uysl
 Tags:              security.txt, security, responsible disclosure, bug bounty
 Requires at least: 5.7
-Tested up to:      6.4
+Tested up to:      6.5
 Requires PHP:      7.2
-Stable tag:        1.0.1
+Stable tag:        1.0.2
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Donate link:       https://handyplugins.co/donate/
@@ -75,6 +75,10 @@ No. The plugin handles ".well-known/security.txt" and "security.txt" requests fo
 1. Settings Page
 
 == Changelog ==
+
+= 1.0.2 (19 March, 2024)  =
+* Tested with WP 6.5
+* Dependency updates.
 
 = 1.0.1 (22 July, 2023)  =
 * Tested with WP 6.3

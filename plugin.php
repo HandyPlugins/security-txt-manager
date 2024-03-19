@@ -3,7 +3,7 @@
  * Plugin Name:       Security.txt Manager
  * Plugin URI:        https://github.com/HandyPlugins/security-txt-manager
  * Description:       Security.txt Manager for WordPress.
- * Version:           1.0.1
+ * Version:           1.0.2
  * Requires at least: 5.7
  * Requires PHP:      7.2
  * Author:            HandyPlugins
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Useful global constants.
-define( 'SECURITY_TXT_MANAGER_VERSION', '1.0.1' );
+define( 'SECURITY_TXT_MANAGER_VERSION', '1.0.2' );
 define( 'SECURITY_TXT_MANAGER_PLUGIN_FILE', __FILE__ );
 define( 'SECURITY_TXT_MANAGER_URL', plugin_dir_url( __FILE__ ) );
 define( 'SECURITY_TXT_MANAGER_PATH', plugin_dir_path( __FILE__ ) );
