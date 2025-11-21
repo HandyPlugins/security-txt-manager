@@ -16,6 +16,7 @@
     "format-js": "10up-toolkit format-js",
     "lint-js": "10up-toolkit lint-js",
     "lint-style": "10up-toolkit lint-style",
+    "lint": "npm run lint-js && npm run lint-style",
     "test": "10up-toolkit test-unit-jest",
     "make-pot": "wp i18n make-pot . languages/security-txt-manager.pot --domain='security-txt-manager'",
     "make-json": "wp i18n make-json languages --no-purge",
