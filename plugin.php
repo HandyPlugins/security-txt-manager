@@ -3,7 +3,7 @@
  * Plugin Name:       Security.txt Manager
  * Plugin URI:        https://github.com/HandyPlugins/security-txt-manager
  * Description:       Security.txt Manager for WordPress.
- * Version:           1.0.3
+ * Version:           1.1
  * Requires at least: 5.7
  * Requires PHP:      7.2
  * Author:            HandyPlugins
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Useful global constants.
-define( 'SECURITY_TXT_MANAGER_VERSION', '1.0.3' );
+define( 'SECURITY_TXT_MANAGER_VERSION', '1.1' );
 define( 'SECURITY_TXT_MANAGER_PLUGIN_FILE', __FILE__ );
 define( 'SECURITY_TXT_MANAGER_URL', plugin_dir_url( __FILE__ ) );
 define( 'SECURITY_TXT_MANAGER_PATH', plugin_dir_path( __FILE__ ) );
@@ -40,9 +40,9 @@ require_once SECURITY_TXT_MANAGER_INC . 'utils.php';
 require_once SECURITY_TXT_MANAGER_INC . 'core.php';
 require_once SECURITY_TXT_MANAGER_INC . 'admin.php';
 
-$network_activated = Utils\is_network_wide( SECURITY_TXT_MANAGER_PLUGIN_FILE );
+$security_txt_manager_network_activated = Utils\is_network_wide( SECURITY_TXT_MANAGER_PLUGIN_FILE );
 if ( ! defined( 'SECURITY_TXT_MANAGER_IS_NETWORK' ) ) {
-	define( 'SECURITY_TXT_MANAGER_IS_NETWORK', $network_activated );
+	define( 'SECURITY_TXT_MANAGER_IS_NETWORK', $security_txt_manager_network_activated );
 }
 
 

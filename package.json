@@ -1,6 +1,6 @@
 {
   "name": "security-txt-manager",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Security.txt Manager for WordPress",
   "author": {
     "name": "handyplugins",
@@ -16,6 +16,7 @@
     "format-js": "10up-toolkit format-js",
     "lint-js": "10up-toolkit lint-js",
     "lint-style": "10up-toolkit lint-style",
+    "lint": "npm run lint-js && npm run lint-style",
     "test": "10up-toolkit test-unit-jest",
     "make-pot": "wp i18n make-pot . languages/security-txt-manager.pot --domain='security-txt-manager'",
     "make-json": "wp i18n make-json languages --no-purge",
@@ -23,7 +24,7 @@
     "lint-release": "npm install && composer install && npm run lint"
   },
   "devDependencies": {
-    "10up-toolkit": "^6.0"
+    "10up-toolkit": "^6.5"
   },
   "engines": {
     "node": ">=12.0.0"
