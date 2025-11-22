@@ -1,0 +1,45 @@
+name: Plugin Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  plugin-check:
+    name: Plugin Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --prefer-dist --no-progress --no-interaction
+
+      - name: Install NPM dependencies
+        run: npm ci --no-audit
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Run Plugin Check
+        uses: WordPress/plugin-check-action@v1
+        with:
+          build-dir: '.'
+          exclude-directories: 'node_modules,vendor,.git,.github,.wordpress-org,.husky,tests'
+          exclude-files: '.browserslistrc,.distignore,.editorconfig,.eslintignore,.eslintrc.json,.gitignore,.lintstagedrc.json,.npmrc,.nvmrc,.stylelintignore,.stylelintrc,babel.config.js,composer.json,composer.lock,lerna.json,package.json,package-lock.json,phpcs.xml,phpunit.xml,postcss.config.js,.gitkeep'
