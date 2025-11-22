@@ -40,9 +40,9 @@ require_once SECURITY_TXT_MANAGER_INC . 'utils.php';
 require_once SECURITY_TXT_MANAGER_INC . 'core.php';
 require_once SECURITY_TXT_MANAGER_INC . 'admin.php';
 
-$network_activated = Utils\is_network_wide( SECURITY_TXT_MANAGER_PLUGIN_FILE );
+$security_txt_manager_network_activated = Utils\is_network_wide( SECURITY_TXT_MANAGER_PLUGIN_FILE );
 if ( ! defined( 'SECURITY_TXT_MANAGER_IS_NETWORK' ) ) {
-	define( 'SECURITY_TXT_MANAGER_IS_NETWORK', $network_activated );
+	define( 'SECURITY_TXT_MANAGER_IS_NETWORK', $security_txt_manager_network_activated );
 }
 
 
