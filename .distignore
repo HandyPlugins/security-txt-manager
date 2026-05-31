@@ -39,6 +39,7 @@ node_modules
 tests
 config
 postcss.config.js
+webpack.config.js
 yarn.lock
 .wordpress-org
 .github
