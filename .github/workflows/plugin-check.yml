@@ -37,62 +37,14 @@ jobs:
       - name: Build assets
         run: npm run build
 
-      - name: Setup Plugin Check environment
+      - name: Prepare Plugin Check build
         run: |
-          PLUGIN_DIR=$(pwd)
-          cat > .wp-env.json <<JSON
-          {
-            "core": null,
-            "port": 8880,
-            "testsPort": 8881,
-            "plugins": [
-              "https://downloads.wordpress.org/plugin/plugin-check.latest-stable.zip"
-            ],
-            "mappings": {
-              "wp-content/plugins/security-txt-manager": "$PLUGIN_DIR"
-            }
-          }
-          JSON
-          npm -g --no-fund install @wordpress/env
-
-      - name: Start WordPress environment
-        uses: nick-fields/retry@v4
-        with:
-          timeout_minutes: 10
-          max_attempts: 3
-          shell: bash
-          command: wp-env start --update
+          BUILD_DIR="$RUNNER_TEMP/plugin-check-build/security-txt-manager"
+          mkdir -p "$BUILD_DIR"
+          rsync -a --delete --exclude-from=.distignore ./ "$BUILD_DIR/"
 
       - name: Run Plugin Check
-        env:
-          PLUGIN_SLUG: security-txt-manager
-          EXCLUDE_DIRECTORIES: node_modules,vendor,.git,.github,.wordpress-org,.husky,tests
-          EXCLUDE_FILES: .browserslistrc,.distignore,.editorconfig,.eslintignore,.eslintrc.json,.gitignore,.lintstagedrc.json,.npmrc,.nvmrc,.stylelintignore,.stylelintrc,babel.config.js,composer.json,composer.lock,lerna.json,package.json,package-lock.json,phpcs.xml,phpunit.xml,postcss.config.js,webpack.config.js,.gitkeep,.wp-env.json
-        run: |
-          wp-env run cli wp cli info
-          wp-env run cli wp plugin list
-          wp-env run cli wp plugin activate "$PLUGIN_SLUG"
-
-          set +e
-          wp-env run cli wp plugin check "$PLUGIN_SLUG" \
-            --format=json \
-            --exclude-directories="$EXCLUDE_DIRECTORIES" \
-            --exclude-files="$EXCLUDE_FILES" \
-            --require=./wp-content/plugins/plugin-check/cli.php \
-            | tee "$RUNNER_TEMP/plugin-check-results.json"
-          status=${PIPESTATUS[0]}
-          set -e
-
-          exit "$status"
-
-      - name: Upload Plugin Check results
-        uses: actions/upload-artifact@v4
-        if: always()
+        uses: WordPress/plugin-check-action@v1.0.6
         with:
-          name: plugin-check-results
-          path: ${{ runner.temp }}/plugin-check-results.json
-          if-no-files-found: ignore
-
-      - name: Stop WordPress environment
-        if: always()
-        run: wp-env stop || true
+          build-dir: ${{ runner.temp }}/plugin-check-build/security-txt-manager
+          exclude-directories: 'node_modules,vendor,.git,.github,.wordpress-org,.husky,tests'
