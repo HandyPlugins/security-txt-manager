@@ -44,7 +44,8 @@ jobs:
           rsync -a --delete --exclude-from=.distignore ./ "$BUILD_DIR/"
 
       - name: Run Plugin Check
-        uses: WordPress/plugin-check-action@v1.0.6
+        uses: WordPress/plugin-check-action@v1.1.6
         with:
           build-dir: ${{ runner.temp }}/plugin-check-build/security-txt-manager
           exclude-directories: 'node_modules,vendor,.git,.github,.wordpress-org,.husky,tests'
+          exclude-files: '.browserslistrc,.distignore,.editorconfig,.eslintignore,.eslintrc.json,.gitignore,.lintstagedrc.json,.npmrc,.nvmrc,.stylelintignore,.stylelintrc,babel.config.js,composer.json,composer.lock,lerna.json,package.json,package-lock.json,phpcs.xml,phpunit.xml,postcss.config.js,webpack.config.js,.gitkeep'
