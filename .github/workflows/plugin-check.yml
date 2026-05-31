@@ -43,9 +43,69 @@ jobs:
           mkdir -p "$BUILD_DIR"
           rsync -a --delete --exclude-from=.distignore ./ "$BUILD_DIR/"
 
-      - name: Run Plugin Check
-        uses: WordPress/plugin-check-action@v1.1.6
+      - name: Setup Node.js for Plugin Check
+        uses: actions/setup-node@v4
         with:
-          build-dir: ${{ runner.temp }}/plugin-check-build/security-txt-manager
-          exclude-directories: 'node_modules,vendor,.git,.github,.wordpress-org,.husky,tests'
-          exclude-files: '.browserslistrc,.distignore,.editorconfig,.eslintignore,.eslintrc.json,.gitignore,.lintstagedrc.json,.npmrc,.nvmrc,.stylelintignore,.stylelintrc,babel.config.js,composer.json,composer.lock,lerna.json,package.json,package-lock.json,phpcs.xml,phpunit.xml,postcss.config.js,webpack.config.js,.gitkeep'
+          node-version: '24'
+
+      - name: Run Plugin Check
+        env:
+          BUILD_DIR: ${{ runner.temp }}/plugin-check-build/security-txt-manager
+          PLUGIN_SLUG: security-txt-manager
+          EXCLUDE_DIRECTORIES: node_modules,vendor,.git,.github,.wordpress-org,.husky,tests
+          EXCLUDE_FILES: .browserslistrc,.distignore,.editorconfig,.eslintignore,.eslintrc.json,.gitignore,.lintstagedrc.json,.npmrc,.nvmrc,.stylelintignore,.stylelintrc,babel.config.js,composer.json,composer.lock,lerna.json,package.json,package-lock.json,phpcs.xml,phpunit.xml,postcss.config.js,webpack.config.js,.gitkeep,.wp-env.json
+        run: |
+          set -euo pipefail
+
+          touch "$RUNNER_TEMP/plugin-check-results.json"
+
+          cd "$BUILD_DIR"
+
+          cat > .wp-env.json <<JSON
+          {
+            "core": null,
+            "port": 8880,
+            "testsPort": 8881,
+            "plugins": [
+              "https://downloads.wordpress.org/plugin/plugin-check.zip"
+            ],
+            "mappings": {
+              "wp-content/plugins/$PLUGIN_SLUG": "."
+            }
+          }
+          JSON
+
+          npm -g --no-fund install @wordpress/env
+
+          cleanup() {
+            wp-env stop || true
+          }
+          trap cleanup EXIT
+
+          for attempt in 1 2 3; do
+            if wp-env start --update; then
+              break
+            fi
+
+            if [ "$attempt" -eq 3 ]; then
+              exit 1
+            fi
+
+            sleep 10
+          done
+
+          wp-env run cli wp plugin activate "$PLUGIN_SLUG"
+          wp-env run cli wp plugin check "$PLUGIN_SLUG" \
+            --format=json \
+            --exclude-directories="$EXCLUDE_DIRECTORIES" \
+            --exclude-files="$EXCLUDE_FILES" \
+            --require=./wp-content/plugins/plugin-check/cli.php \
+            | tee "$RUNNER_TEMP/plugin-check-results.json"
+
+      - name: Upload Plugin Check results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: plugin-check-results
+          path: ${{ runner.temp }}/plugin-check-results.json
+          if-no-files-found: ignore
