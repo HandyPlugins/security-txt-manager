@@ -37,6 +37,9 @@ jobs:
       - name: Build assets
         run: npm run build
 
+      - name: Start WordPress environment
+        run: npx wp-env start
+
       - name: Run Plugin Check
         uses: WordPress/plugin-check-action@v1
         with:
