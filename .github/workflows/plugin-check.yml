@@ -37,9 +37,16 @@ jobs:
       - name: Build assets
         run: npm run build
 
+      - name: Start WordPress environment
+        run: npx @wordpress/env start
+
       - name: Run Plugin Check
         uses: WordPress/plugin-check-action@v1
         with:
           build-dir: '.'
           exclude-directories: 'node_modules,vendor,.git,.github,.wordpress-org,.husky,tests'
           exclude-files: '.browserslistrc,.distignore,.editorconfig,.eslintignore,.eslintrc.json,.gitignore,.lintstagedrc.json,.npmrc,.nvmrc,.stylelintignore,.stylelintrc,babel.config.js,composer.json,composer.lock,lerna.json,package.json,package-lock.json,phpcs.xml,phpunit.xml,postcss.config.js,.gitkeep'
+
+      - name: Stop WordPress environment
+        if: always()
+        run: npx @wordpress/env stop
