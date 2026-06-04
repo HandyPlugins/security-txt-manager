@@ -31,7 +31,7 @@ module.exports = ( { file, options, env } ) => ( { /* eslint-disable-line */
 								zindex: false,
 							},
 						],
-				  }
+					}
 				: false,
 	},
 });

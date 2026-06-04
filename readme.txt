@@ -2,9 +2,9 @@
 Contributors:      handyplugins, m_uysl
 Tags:              security.txt, security, responsible disclosure, bug bounty
 Requires at least: 5.7
-Tested up to:      6.9
+Tested up to:      7.0
 Requires PHP:      7.2
-Stable tag:        1.1
+Stable tag:        1.2
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Donate link:       https://handyplugins.co/donate/
@@ -31,6 +31,7 @@ Yes! However, if you are using a subfolder installation it will only work for th
 * Requires PHP 7.2+.
 * Requires WordPress 5.7+.
 * Rewrites need to be enabled. Without rewrites, WordPress cannot know to supply `/security.txt` when requested.
+* The plugin registers rewrite rules for `/.well-known/security.txt` and `/security.txt`; server-level rules may be needed if your web server handles those paths before WordPress.
 * Your site URL must not contain a path (e.g. `https://example.com/site/` or path-based multisite installs). [Learn more on spec](https://www.rfc-editor.org/rfc/rfc9116#section-3.1).
 
 
@@ -40,12 +41,13 @@ Bug reports and pull requests are welcome on [Github](https://github.com/HandyPl
 
 __If you like Security.txt Manager, then consider checking out our other projects:__
 
+* <a href="https://poweredcache.com/" rel="friend">Powered Cache</a> – Caching and optimization for WordPress to help improve PageSpeed and Core Web Vitals.
 * <a href="https://handyplugins.co/magic-login-pro/" rel="friend">Magic Login Pro</a> – Easy, secure, and passwordless authentication for WordPress.
-* <a href="https://handyplugins.co/easy-text-to-speech/" rel="friend">Easy Text-to-Speech for WordPress</a> – Transform your textual content into high-quality synthesized speech with Amazon Polly.
-* <a href="https://handyplugins.co/handywriter/" rel="friend">Handywriter</a> – AI-powered writing assistant that can help you create content for your WordPress.
-* <a href="https://handyplugins.co/paddlepress-pro/" rel="friend">PaddlePress PRO</a> – Paddle Plugin for WordPress
-* <a href="https://poweredcache.com/" rel="friend">Powered Cache</a> – Caching and Optimization for WordPress – Easily Improve PageSpeed & Web Vitals Score
-* <a href="https://handyplugins.co/wp-accessibility-toolkit/" rel="friend">WP Accessibility Toolkit</a> – A collection of tools to help you make your WordPress more accessible.
+* <a href="https://handyplugins.co/sessionquota-pro/" rel="friend">SessionQuota Pro</a> – Limit concurrent sessions in WordPress.
+* <a href="https://handyplugins.co/stream-integration-pro/" rel="friend">Stream Integration Pro</a> – Upload, sync, restore, and manage WordPress videos with Cloudflare Stream.
+* <a href="https://handyplugins.co/easy-text-to-speech/" rel="friend">Easy Text-to-Speech</a> – Convert written content into high-quality synthesized speech for WordPress.
+* <a href="https://handyplugins.co/handywriter/" rel="friend">Handywriter</a> – AI-powered writing assistant for WordPress.
+* <a href="https://handyplugins.co/paddlepress-pro/" rel="friend">PaddlePress PRO</a> – Paddle plugin for WordPress.
 
 
 == Installation ==
@@ -76,6 +78,12 @@ No. The plugin handles ".well-known/security.txt" and "security.txt" requests fo
 
 == Changelog ==
 
+= 1.2 (4 June, 2026) =
+* Improved handling for `/.well-known/security.txt` and `/security.txt` requests with WordPress rewrite rules.
+* Added Apache and Nginx configuration examples to the settings screen for servers that handle security.txt paths before WordPress.
+* Hardened request URI handling for the security.txt endpoint.
+* Tested with WP 7.0
+
 = 1.1 (22 November, 2025)  =
 * Minor tweaks.
 * Tested with WP 6.9
@@ -96,3 +104,6 @@ No. The plugin handles ".well-known/security.txt" and "security.txt" requests fo
 * First release
 
 == Upgrade Notice ==
+
+= 1.2 =
+Improves security.txt endpoint handling and adds server configuration guidance for Apache and Nginx.
