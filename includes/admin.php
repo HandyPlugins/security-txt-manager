@@ -102,7 +102,52 @@ function securitytxt_settings_screen() {
 			submit_button( esc_html__( 'Save Changes', 'security-txt-manager' ), 'submit primary' );
 			?>
 		</form>
+
+		<?php server_configuration_notes(); ?>
 	</div>
+	<?php
+}
+
+/**
+ * Server configuration notes.
+ *
+ * @return void
+ */
+function server_configuration_notes() {
+	$apache_rules = <<<'APACHE'
+# Add before the WordPress rewrite rules.
+RewriteRule ^\.well-known/security\.txt$ index.php [L]
+RewriteRule ^security\.txt$ index.php [L]
+APACHE;
+
+	$nginx_rules = <<<'NGINX'
+location = /.well-known/security.txt {
+	try_files $uri /index.php?$args;
+}
+
+location = /security.txt {
+	try_files $uri /index.php?$args;
+}
+NGINX;
+	?>
+	<hr>
+	<h2><?php esc_html_e( 'Server configuration', 'security-txt-manager' ); ?></h2>
+	<p>
+		<?php
+		$message = sprintf(
+			/* translators: 1: .well-known/security.txt URL, 2: security.txt URL. */
+			esc_html__( 'The plugin registers WordPress rewrite rules for %1$s and %2$s. If your web server handles these paths before WordPress, add one of the rules below to pass the request to WordPress.', 'security-txt-manager' ),
+			'<code>' . esc_html( wp_parse_url( home_url( '/.well-known/security.txt' ), PHP_URL_PATH ) ) . '</code>',
+			'<code>' . esc_html( wp_parse_url( home_url( '/security.txt' ), PHP_URL_PATH ) ) . '</code>'
+		);
+
+		echo wp_kses( $message, [ 'code' => [] ] );
+		?>
+	</p>
+	<h3><?php esc_html_e( 'Apache', 'security-txt-manager' ); ?></h3>
+	<textarea class="large-text code" rows="4" readonly><?php echo esc_textarea( $apache_rules ); ?></textarea>
+	<h3><?php esc_html_e( 'Nginx', 'security-txt-manager' ); ?></h3>
+	<textarea class="large-text code" rows="8" readonly><?php echo esc_textarea( $nginx_rules ); ?></textarea>
 	<?php
 }
 

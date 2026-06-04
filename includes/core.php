@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use const SecuritytxtManager\Constants\CAPABILITY;
+use const SecuritytxtManager\Constants\QUERY_VAR;
 
 /**
  * Default setup routine
@@ -19,9 +20,34 @@ use const SecuritytxtManager\Constants\CAPABILITY;
  * @return void
  */
 function setup() {
-	add_action( 'init', __NAMESPACE__ . '\\display_security_txt' );
+	add_action( 'init', __NAMESPACE__ . '\\add_rewrite_rules' );
+	add_action( 'template_redirect', __NAMESPACE__ . '\\display_security_txt' );
 	add_action( 'admin_init', __NAMESPACE__ . '\\add_capability' );
+	add_filter( 'query_vars', __NAMESPACE__ . '\\query_vars' );
 	add_filter( 'security_txt_content', __NAMESPACE__ . '\\maybe_add_credits' );
+}
+
+/**
+ * Add rewrite rules for security.txt endpoints.
+ *
+ * @return void
+ */
+function add_rewrite_rules() {
+	add_rewrite_rule( '^security\.txt$', 'index.php?' . QUERY_VAR . '=1', 'top' );
+	add_rewrite_rule( '^\.well-known/security\.txt$', 'index.php?' . QUERY_VAR . '=1', 'top' );
+}
+
+/**
+ * Register query vars.
+ *
+ * @param array $vars Public query vars.
+ *
+ * @return array
+ */
+function query_vars( $vars ) {
+	$vars[] = QUERY_VAR;
+
+	return $vars;
 }
 
 /**
@@ -30,18 +56,42 @@ function setup() {
  * @return void
  */
 function display_security_txt() {
-	$request = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : false;
+	if ( ! is_security_txt_request() ) {
+		return;
+	}
 
+	$settings = \SecuritytxtManager\Utils\get_settings();
+	if ( ! empty( $settings['content'] ) ) {
+		status_header( 200 );
+		nocache_headers();
+		header( 'Content-Type: text/plain; charset=utf-8' );
+		echo esc_html( apply_filters( 'security_txt_content', $settings['content'] ) );
+		exit;
+	}
+
+	status_header( 404 );
+	nocache_headers();
+	exit;
+}
+
+/**
+ * Determine if the current request is for security.txt.
+ *
+ * @return bool
+ */
+function is_security_txt_request() {
+	if ( (bool) get_query_var( QUERY_VAR ) ) {
+		return true;
+	}
+
+	if ( empty( $_SERVER['REQUEST_URI'] ) ) {
+		return false;
+	}
+
+	$request_path     = wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH );
 	$allowed_requests = [ '/security.txt', '/.well-known/security.txt' ];
 
-	if ( in_array( $request, $allowed_requests, true ) || '/security.txt?' === substr( $request, 0, 14 ) || '/.well-known/security.txt?' === substr( $request, 0, 26 ) ) {
-		$settings = \SecuritytxtManager\Utils\get_settings();
-		if ( ! empty( $settings['content'] ) ) {
-			header( 'Content-Type: text/plain' );
-			echo esc_html( apply_filters( 'security_txt_content', $settings['content'] ) );
-			exit;
-		}
-	}
+	return in_array( $request_path, $allowed_requests, true );
 }
 
 /**
@@ -68,9 +118,20 @@ function maybe_add_credits( $content ) {
  */
 function add_capability() {
 	$role = get_role( 'administrator' );
-	if ( ! $role->has_cap( CAPABILITY ) ) {
+	if ( $role && ! $role->has_cap( CAPABILITY ) ) {
 		$role->add_cap( CAPABILITY );
 	}
+}
+
+/**
+ * Activation routine.
+ *
+ * @return void
+ */
+function activate() {
+	add_capability();
+	add_rewrite_rules();
+	flush_rewrite_rules();
 }
 
 /**
@@ -80,5 +141,9 @@ function add_capability() {
  */
 function deactivate() {
 	$role = get_role( 'administrator' );
-	$role->remove_cap( CAPABILITY );
+	if ( $role ) {
+		$role->remove_cap( CAPABILITY );
+	}
+
+	flush_rewrite_rules();
 }

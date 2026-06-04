@@ -60,5 +60,5 @@ add_action( 'plugins_loaded', __NAMESPACE__ . '\\setup_security_txt_manager' );
 
 
 // Activation/Deactivation.
-register_activation_hook( SECURITY_TXT_MANAGER_PLUGIN_FILE, '\SecuritytxtManager\Core\add_capability' );
+register_activation_hook( SECURITY_TXT_MANAGER_PLUGIN_FILE, '\SecuritytxtManager\Core\activate' );
 register_deactivation_hook( SECURITY_TXT_MANAGER_PLUGIN_FILE, '\SecuritytxtManager\Core\deactivate' );

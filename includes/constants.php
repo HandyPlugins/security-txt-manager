@@ -12,4 +12,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 const CAPABILITY     = 'manage_security_txt';
+const QUERY_VAR      = 'security_txt_manager';
 const SETTING_OPTION = 'security_txt_manager';
