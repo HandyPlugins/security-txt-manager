@@ -1,11 +1,7 @@
 name: Plugin Check
 
 on:
-  pull_request:
-  push:
-    branches:
-      - main
-      - develop
+  workflow_dispatch:
 
 jobs:
   plugin-check:
@@ -38,7 +34,7 @@ jobs:
         run: npm run build
 
       - name: Run Plugin Check
-        uses: WordPress/plugin-check-action@6f5a57e173c065a394b78688f75df543e4011902
+        uses: WordPress/plugin-check-action@v1
         with:
           build-dir: '.'
           exclude-directories: 'node_modules,vendor,.git,.github,.wordpress-org,.husky,tests'
