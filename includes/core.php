@@ -88,7 +88,8 @@ function is_security_txt_request() {
 		return false;
 	}
 
-	$request_path     = wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH );
+	$request_uri      = sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) );
+	$request_path     = wp_parse_url( $request_uri, PHP_URL_PATH );
 	$allowed_requests = [ '/security.txt', '/.well-known/security.txt' ];
 
 	return in_array( $request_path, $allowed_requests, true );
