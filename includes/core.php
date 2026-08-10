@@ -21,6 +21,7 @@ use const SecuritytxtManager\Constants\QUERY_VAR;
  */
 function setup() {
 	add_action( 'init', __NAMESPACE__ . '\\add_rewrite_rules' );
+	add_action( 'parse_request', __NAMESPACE__ . '\\disable_canonical_redirect' );
 	add_action( 'template_redirect', __NAMESPACE__ . '\\display_security_txt' );
 	add_action( 'admin_init', __NAMESPACE__ . '\\add_capability' );
 	add_filter( 'query_vars', __NAMESPACE__ . '\\query_vars' );
@@ -48,6 +49,21 @@ function query_vars( $vars ) {
 	$vars[] = QUERY_VAR;
 
 	return $vars;
+}
+
+/**
+ * Prevent WordPress from redirecting security.txt requests to a trailing slash.
+ *
+ * @param \WP $wp Current WordPress environment instance.
+ *
+ * @return void
+ */
+function disable_canonical_redirect( $wp ) {
+	if ( empty( $wp->query_vars[ QUERY_VAR ] ) ) {
+		return;
+	}
+
+	remove_action( 'template_redirect', 'redirect_canonical' );
 }
 
 /**
