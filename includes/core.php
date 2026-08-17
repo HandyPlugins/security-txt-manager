@@ -81,13 +81,29 @@ function display_security_txt() {
 		status_header( 200 );
 		nocache_headers();
 		header( 'Content-Type: text/plain; charset=utf-8' );
-		echo esc_html( apply_filters( 'security_txt_content', $settings['content'] ) );
+		$content = apply_filters( 'security_txt_content', $settings['content'] );
+		echo esc_html( ensure_trailing_line_feed( $content ) );
 		exit;
 	}
 
 	status_header( 404 );
 	nocache_headers();
 	exit;
+}
+
+/**
+ * Ensure security.txt content ends with a line feed as required by RFC 9116.
+ *
+ * @param string $content Security.txt content.
+ *
+ * @return string
+ */
+function ensure_trailing_line_feed( $content ) {
+	if ( "\n" !== substr( $content, -1 ) ) {
+		$content .= "\n";
+	}
+
+	return $content;
 }
 
 /**

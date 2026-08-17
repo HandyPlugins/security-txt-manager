@@ -4,7 +4,7 @@ Tags:              security.txt, security, responsible disclosure, bug bounty
 Requires at least: 5.7
 Tested up to:      7.1
 Requires PHP:      7.2
-Stable tag:        1.3
+Stable tag:        1.3.1
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Donate link:       https://handyplugins.co/donate/
@@ -77,6 +77,9 @@ No. The plugin handles ".well-known/security.txt" and "security.txt" requests fo
 1. Settings Page
 
 == Changelog ==
+
+= 1.3.1 (17 August, 2026) =
+* Ensured security.txt output ends with a line feed, as required by RFC 9116.
 
 = 1.3 (10 August, 2026) =
 * Prevented WordPress canonical redirects from adding a trailing slash to the `/security.txt` and `/.well-known/security.txt` endpoints. Props to [@hfranz](https://profiles.wordpress.org/hfranz/).
