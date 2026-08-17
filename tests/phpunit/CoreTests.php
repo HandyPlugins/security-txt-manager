@@ -49,6 +49,7 @@ namespace SecuritytxtManager\Tests {
 	use PHPUnit\Framework\TestCase;
 	use const SecuritytxtManager\Constants\QUERY_VAR;
 	use function SecuritytxtManager\Core\disable_canonical_redirect;
+	use function SecuritytxtManager\Core\ensure_trailing_line_feed;
 	use function SecuritytxtManager\Core\setup;
 
 	/**
@@ -111,6 +112,28 @@ namespace SecuritytxtManager\Tests {
 			disable_canonical_redirect( $wp );
 
 			$this->assertSame( [], $GLOBALS['security_txt_manager_test_removed_actions'] );
+		}
+
+		/**
+		 * A line feed is appended when security.txt content does not already have one.
+		 *
+		 * @return void
+		 */
+		public function test_appends_trailing_line_feed() {
+			$content = 'Contact: mailto:security@example.com';
+
+			$this->assertSame( $content . "\n", ensure_trailing_line_feed( $content ) );
+		}
+
+		/**
+		 * An existing trailing line feed is preserved without adding another one.
+		 *
+		 * @return void
+		 */
+		public function test_preserves_existing_trailing_line_feed() {
+			$content = "Contact: mailto:security@example.com\n";
+
+			$this->assertSame( $content, ensure_trailing_line_feed( $content ) );
 		}
 	}
 }
